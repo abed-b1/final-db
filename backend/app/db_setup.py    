@@ -1,0 +1,8 @@
+from . import db
+from .models import Movie
+
+def seed_data():
+    movie1 = Movie(title="Inception", year=2010, length=148, rating=8.8, votes=2000000, is_adult=False)
+    movie2 = Movie(title="The Dark Knight", year=2008, length=152, rating=9.0, votes=2500000, is_adult=False)
+    db.session.add_all([movie1, movie2])
+    db.session.commit()

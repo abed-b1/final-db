@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./backend:/app
+    environment:
+      - FLASK_ENV=development
+    command: python3 main.py
+
+  frontend:
+    build:
+      context: ./frontend-app
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
