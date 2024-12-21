@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Navbar from '/Users/abedbadran/Desktop/imdb-final/frontend-app/src/components/NavBar.js'; // Import the shared navigation bar
+import Navbar from './components/NavBar.js'; // Import the shared navigation bar
 import Home from './pages/Home';
 import Movies from './pages/Movies';
 import MovieDetails from './pages/MovieDetails';

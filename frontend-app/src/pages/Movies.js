@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import MovieCard from '/Users/abedbadran/Desktop/imdb-final/frontend-app/src/components/MovieCard.js';
+import MovieCard from '../components/MovieCard.js';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
