@@ -10,9 +10,6 @@ import PersonDetails from './pages/PersonDetails'; // Shows details for one pers
 import Search from './pages/Search';
 import SeriesDetails from './pages/SeriesDetails';
 import Analysis from './pages/Analysis'; // Import the Analysis page
-import Login from './components/Login'; // Import Login component
-import ForgotPassword from './components/ForgotPassword'; // Import Forgot Password component
-import Register from './components/Register'; // Import Register component
 
 const App = () => {
   const location = useLocation(); // Get the current location
@@ -20,9 +17,7 @@ const App = () => {
   return (
     <>
       {/* Conditionally render the Navbar */}
-      {location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/forgot-password' && (
-        <Navbar />
-      )}
+      {location.pathname !== '/' && <Navbar />}
       <div style={{ padding: '20px' }}> {/* Provide consistent padding for the content */}
         <Routes>
           {/* Home Page */}
@@ -45,11 +40,6 @@ const App = () => {
 
           {/* Analysis Page */}
           <Route path="/analysis" element={<Analysis />} /> {/* Data analysis and visualization */}
-
-          {/* Authentication Pages */}
-          <Route path="/login" element={<Login />} /> {/* Login page */}
-          <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Forgot Password page */}
-          <Route path="/register" element={<Register />} /> {/* Register page */}
         </Routes>
       </div>
     </>
