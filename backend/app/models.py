@@ -38,13 +38,13 @@ class Person(db.Model):
     role = db.Column(db.String(50), nullable=True)  # Optional field to specify role in the database
 
 
-# Movie and Person Relationship (Actors, Directors, Writers)
+# Movie-Person Association Table
 class MoviePerson(db.Model):
     __tablename__ = 'movie_people'
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.id'), primary_key=True)
     person_id = db.Column(db.Integer, db.ForeignKey('people.id'), primary_key=True)
-    role = db.Column(db.String(50), nullable=False)  # Role (e.g., Actor, Director, Writer)
-
+    role = db.Column(db.String(50), nullable=False)
+    person = db.relationship('Person', backref='movie_roles')  # Corrected relationship to Person
 
 
 

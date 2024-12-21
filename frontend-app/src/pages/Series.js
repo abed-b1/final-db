@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link for navigation
 import axios from 'axios';
 
 const Series = () => {
@@ -28,13 +29,15 @@ const Series = () => {
         <div className="series-list">
           {series.map((seriesItem) => (
             <div key={seriesItem.id} className="series-card">
-              {/* The code you provided should go here */}
-              <img 
-                src={seriesItem.image_url} 
-                alt={seriesItem.title} 
-                style={{ width: '150px', height: 'auto' }} 
-              />
-              <h3>{seriesItem.title}</h3>
+              {/* Add a clickable link to navigate to the Series Details page */}
+              <Link to={`/series/${seriesItem.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <img 
+                  src={seriesItem.image_url} 
+                  alt={seriesItem.title} 
+                  style={{ width: '150px', height: 'auto' }} 
+                />
+                <h3>{seriesItem.title}</h3>
+              </Link>
               <p><strong>Start Year:</strong> {seriesItem.start_year}</p>
               <p><strong>End Year:</strong> {seriesItem.end_year || 'Ongoing'}</p>
               <p><strong>Rating:</strong> {seriesItem.rating}</p>

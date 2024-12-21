@@ -1,39 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React from 'react';
 
-const MovieDetails = () => {
-  const { id } = useParams(); // Get the movie ID from the URL
-  const [movie, setMovie] = useState(null);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    // Fetch movie details from the backend
-    axios.get(`http://localhost:5001/movies/${id}`)
-      .then(response => setMovie(response.data))
-      .catch(error => {
-        console.error('Error fetching movie details:', error);
-        setError('Failed to load movie details.');
-      });
-  }, [id]);
-
-  if (error) {
-    return <p style={{ color: 'red' }}>{error}</p>;
-  }
-
-  if (!movie) {
-    return <p>Loading...</p>;
-  }
-
+const MovieCard = ({ movie }) => {
   return (
-    <div style={{ padding: '20px', border: '1px solid #ddd', maxWidth: '600px', margin: '20px auto' }}>
-      <h1>{movie.title}</h1>
+    <div style={{ border: '1px solid #ddd', padding: '10px', margin: '10px', width: '300px' }}>
+      <h2>{movie.title}</h2>
       <p><strong>Year:</strong> {movie.year}</p>
       <p><strong>Length:</strong> {movie.length} mins</p>
       <p><strong>Rating:</strong> {movie.rating}</p>
       <p><strong>Votes:</strong> {movie.votes}</p>
       <p><strong>Adult Content:</strong> {movie.is_adult ? 'Yes' : 'No'}</p>
-
+      
       {/* Display Genres */}
       {movie.genres && movie.genres.length > 0 && (
         <div>
@@ -63,4 +39,4 @@ const MovieDetails = () => {
   );
 };
 
-export default MovieDetails;
+export default MovieCard;

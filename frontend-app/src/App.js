@@ -7,6 +7,7 @@ import Series from './pages/Series';
 import People from './pages/People';  // Add this for the list of people
 import PersonDetails from './pages/PersonDetails'; // Shows details for one person
 import Search from './pages/Search';
+import SeriesDetails from './pages/SeriesDetails';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
 
         {/* TV Series Page */}
         <Route path="/series" element={<Series />} /> {/* Single page for series */}
+        <Route path="/series/:id" element={<SeriesDetails />} /> {/* Series Details Page */}
 
         {/* People Page */}
         <Route path="/people" element={<People />} /> {/* List of people */}

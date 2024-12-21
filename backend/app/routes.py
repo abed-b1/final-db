@@ -13,7 +13,7 @@ def home():
 # -------------------- Movies Routes --------------------
 @main_bp.route('/movies', methods=['GET'])
 def get_movies():
-    """Get all movies."""
+    """Get all movies along with their genres and people."""
     try:
         movies = Movie.query.all()
         return jsonify([{
@@ -23,10 +23,13 @@ def get_movies():
             "length": movie.length,
             "rating": movie.rating,
             "votes": movie.votes,
-            "is_adult": movie.is_adult
+            "is_adult": movie.is_adult,
+            "genres": [{"id": genre.id, "name": genre.name} for genre in movie.genres],
+            "people": [{"id": person.id, "name": person.name, "role": person.role} for person in movie.people]  # Fixed access to people
         } for movie in movies]), 200
     except Exception as e:
         return jsonify({"error": "Failed to fetch movies", "message": str(e)}), 500
+
 
 @main_bp.route('/movies/<int:movie_id>', methods=['GET'])
 def get_movie(movie_id):
@@ -37,7 +40,7 @@ def get_movie(movie_id):
             return jsonify({"error": "Movie not found"}), 404
 
         genres = [{"id": genre.id, "name": genre.name} for genre in movie.genres]
-        people = [{"id": mp.person.id, "name": mp.person.name, "role": mp.role} for mp in movie.movie_people]
+        people = [{"id": person.id, "name": person.name, "role": person.role} for person in movie.people]  # Fixed access to people
 
         return jsonify({
             "id": movie.id,
@@ -167,6 +170,41 @@ def get_series():
         } for series in all_series]), 200
     except Exception as e:
         return jsonify({"error": "Failed to fetch series", "message": str(e)}), 500
+    
+@main_bp.route('/series/<int:series_id>', methods=['GET'])
+def get_series_details(series_id):
+    """Get details of a specific series, including its episodes."""
+    try:
+        series = Series.query.get(series_id)
+        if not series:
+            return jsonify({"error": "Series not found"}), 404
+
+        episodes = Episode.query.filter_by(series_id=series_id).all()
+
+        return jsonify({
+            "id": series.id,
+            "title": series.title,
+            "start_year": series.start_year,
+            "end_year": series.end_year,
+            "rating": series.rating,
+            "votes": series.votes,
+            "description": series.description,
+            "image_url": series.image_url,
+            "episodes": [
+                {
+                    "id": episode.id,
+                    "title": episode.title,
+                    "season": episode.season,
+                    "episode_number": episode.episode_number,
+                    "length": episode.length,
+                    "rating": episode.rating,
+                    "votes": episode.votes
+                } for episode in episodes
+            ]
+        }), 200
+    except Exception as e:
+        return jsonify({"error": "Failed to fetch series details", "message": str(e)}), 500
+
 
 # -------------------- Search Functionality --------------------
 @main_bp.route('/search', methods=['GET'])
