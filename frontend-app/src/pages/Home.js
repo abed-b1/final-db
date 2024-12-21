@@ -1,12 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Clear user session (e.g., remove token)
+    localStorage.removeItem('authToken'); // Assuming token is stored in localStorage
+    navigate('/login'); // Redirect to login page
+  };
+
   return (
     <div style={styles.container}>
       <h1 style={styles.header}>Welcome to IMDb Clone</h1>
       <p style={styles.subHeader}>Discover movies, TV series, and more!</p>
-      
+
       {/* Navigation Links */}
       <div style={styles.navigation}>
         <h2 style={styles.explore}>Explore:</h2>
@@ -33,6 +41,11 @@ const Home = () => {
           </li>
         </ul>
       </div>
+
+      {/* Logout Button */}
+      <button style={styles.logoutButton} onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   );
 };
@@ -83,6 +96,17 @@ const styles = {
   },
   linkHover: {
     color: '#ffcc00',
+  },
+  logoutButton: {
+    marginTop: '30px',
+    padding: '10px 20px',
+    backgroundColor: '#0056b3',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '5px',
+    fontSize: '16px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s',
   },
 };
 

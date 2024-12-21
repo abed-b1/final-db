@@ -5,24 +5,29 @@ import Home from './pages/Home';
 import Movies from './pages/Movies';
 import MovieDetails from './pages/MovieDetails';
 import Series from './pages/Series';
-import People from './pages/People';  // Add this for the list of people
+import People from './pages/People'; // Add this for the list of people
 import PersonDetails from './pages/PersonDetails'; // Shows details for one person
 import Search from './pages/Search';
 import SeriesDetails from './pages/SeriesDetails';
 import Analysis from './pages/Analysis'; // Import the Analysis page
+import Login from './components/Login'; // Import Login component
+import ForgotPassword from './components/ForgotPassword'; // Import Forgot Password component
+import Register from './components/Register'; // Import Register component
 
 const App = () => {
   const location = useLocation(); // Get the current location
-  
+
   return (
     <>
       {/* Conditionally render the Navbar */}
-      {location.pathname !== '/' && <Navbar />}
+      {location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/forgot-password' && (
+        <Navbar />
+      )}
       <div style={{ padding: '20px' }}> {/* Provide consistent padding for the content */}
         <Routes>
           {/* Home Page */}
           <Route path="/" element={<Home />} />
-          
+
           {/* Movies Pages */}
           <Route path="/movies" element={<Movies />} />
           <Route path="/movies/:id" element={<MovieDetails />} />
@@ -40,6 +45,11 @@ const App = () => {
 
           {/* Analysis Page */}
           <Route path="/analysis" element={<Analysis />} /> {/* Data analysis and visualization */}
+
+          {/* Authentication Pages */}
+          <Route path="/login" element={<Login />} /> {/* Login page */}
+          <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Forgot Password page */}
+          <Route path="/register" element={<Register />} /> {/* Register page */}
         </Routes>
       </div>
     </>

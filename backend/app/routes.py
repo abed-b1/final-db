@@ -1,8 +1,11 @@
 from flask import Blueprint, jsonify, request
 from .models import db, Movie, Genre, Person, MovieGenre, MoviePerson, Series, Episode
 from sqlalchemy.sql import text
+
 # Create the blueprint
 main_bp = Blueprint('main', __name__)
+
+
 
 # -------------------- Home Route --------------------
 @main_bp.route('/', methods=['GET'])
@@ -277,7 +280,8 @@ def ratings_by_year():
             GROUP BY m.year
             ORDER BY m.year;
         """))
-        data = [{"year": row[0], "avg_rating": row[1]} for row in result]
+        data = [{"year": row[0], "avg_rating": row[1]} for row in result]   
         return jsonify(data), 200
     except Exception as e:
         return jsonify({"error": "Failed to fetch ratings by year", "message": str(e)}), 500
+

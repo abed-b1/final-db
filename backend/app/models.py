@@ -74,7 +74,7 @@ class Episode(db.Model):
     rating = db.Column(db.Float)
     votes = db.Column(db.Integer)
 
-
+   
 # User Ratings Model
 class UserRating(db.Model):
     __tablename__ = 'user_ratings'
@@ -83,3 +83,10 @@ class UserRating(db.Model):
     series_id = db.Column(db.Integer, db.ForeignKey('series.id'), nullable=True)
     user_id = db.Column(db.Integer, nullable=False)
     rating = db.Column(db.Float, nullable=False)
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
