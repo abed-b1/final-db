@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from .models import db, Movie, Genre, Person, MovieGenre, MoviePerson, Series, Episode
-
+from sqlalchemy.sql import text
 # Create the blueprint
 main_bp = Blueprint('main', __name__)
 
@@ -227,3 +227,57 @@ def search():
         }), 200
     except Exception as e:
         return jsonify({"error": "Failed to perform search", "message": str(e)}), 500
+
+
+@main_bp.route('/analysis/directors-average-ratings', methods=['GET'])
+def directors_average_ratings():
+    """Analyze directors' average ratings."""
+    try:
+        query = text("""
+            SELECT people.name AS director, AVG(movies.rating) AS avg_rating
+            FROM movies
+            JOIN movie_people ON movies.id = movie_people.movie_id
+            JOIN people ON movie_people.person_id = people.id
+            WHERE movie_people.role = 'Director'
+            GROUP BY people.name
+            ORDER BY avg_rating DESC
+        """)
+        result = db.session.execute(query)
+        data = [{"director": row[0], "avg_rating": row[1]} for row in result]
+        return jsonify(data), 200
+    except Exception as e:
+        return jsonify({"error": "Failed to fetch director ratings", "message": str(e)}), 500
+
+@main_bp.route('/analysis/genre-popularity-over-time', methods=['GET'])
+def genre_popularity_over_time():
+    """Analyze genre popularity over time."""
+    try:
+        query = text("""
+            SELECT g.name AS genre, m.year, COUNT(*) AS movie_count
+            FROM genres g
+            JOIN movie_genres mg ON g.id = mg.genre_id
+            JOIN movies m ON m.id = mg.movie_id
+            GROUP BY g.name, m.year
+            ORDER BY m.year, movie_count DESC;
+        """)
+        result = db.session.execute(query)
+        data = [{"genre": row[0], "year": row[1], "movie_count": row[2]} for row in result]
+        return jsonify(data), 200
+    except Exception as e:
+        return jsonify({"error": "Failed to fetch genre popularity", "message": str(e)}), 500
+    
+
+@main_bp.route('/analysis/ratings-by-year', methods=['GET'])
+def ratings_by_year():
+    """Get average movie ratings by year."""
+    try:
+        result = db.session.execute(text("""
+            SELECT m.year, AVG(m.rating) AS avg_rating
+            FROM movies m
+            GROUP BY m.year
+            ORDER BY m.year;
+        """))
+        data = [{"year": row[0], "avg_rating": row[1]} for row in result]
+        return jsonify(data), 200
+    except Exception as e:
+        return jsonify({"error": "Failed to fetch ratings by year", "message": str(e)}), 500

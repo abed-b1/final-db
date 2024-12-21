@@ -2,10 +2,7 @@
 INSERT INTO movies (title, year, length, rating, votes, is_adult)
 VALUES 
     ('Inception', 2010, 148, 8.8, 2000000, 0),
-    ('The Dark Knight', 2008, 152, 9.0, 2500000, 0),
-    ('Interstellar', 2014, 169, 8.6, 1500000, 0),
-    ('Memento', 2000, 113, 8.4, 1100000, 0),
-    ('Tenet', 2020, 150, 7.3, 400000, 0);
+    ('The Dark Knight', 2008, 152, 9.0, 2500000, 0);
 
 -- Insert genres
 INSERT INTO genres (name)
@@ -21,21 +18,14 @@ VALUES
     (1, 2), -- Inception -> Sci-Fi
     (1, 4), -- Inception -> Thriller
     (2, 1), -- The Dark Knight -> Action
-    (2, 4), -- The Dark Knight -> Thriller
-    (3, 2), -- Interstellar -> Sci-Fi
-    (3, 3), -- Interstellar -> Drama
-    (4, 4), -- Memento -> Thriller
-    (5, 2), -- Tenet -> Sci-Fi
-    (5, 1); -- Tenet -> Action
+    (2, 4); -- The Dark Knight -> Thriller
 
 -- Insert people (actors, directors, writers)
 INSERT INTO people (name, birth_year, death_year)
 VALUES 
     ('Christopher Nolan', 1970, NULL), -- Director and Writer
-    ('Leonardo DiCaprio', 1974, NULL), -- Actor
-    ('Christian Bale', 1974, NULL), -- Actor
-    ('Matthew McConaughey', 1969, NULL), -- Actor
-    ('Guy Pearce', 1967, NULL); -- Actor
+    ('Leonardo DiCaprio', 1974, NULL), -- Actor in Inception
+    ('Christian Bale', 1974, NULL); -- Actor in The Dark Knight
 
 -- Associate movies with people and their roles
 INSERT INTO movie_people (movie_id, person_id, role)
@@ -44,14 +34,7 @@ VALUES
     (1, 1, 'Writer'), -- Christopher Nolan -> Writer of Inception
     (1, 2, 'Actor'), -- Leonardo DiCaprio -> Actor in Inception
     (2, 1, 'Director'), -- Christopher Nolan -> Director of The Dark Knight
-    (2, 3, 'Actor'), -- Christian Bale -> Actor in The Dark Knight
-    (3, 1, 'Director'), -- Christopher Nolan -> Director of Interstellar
-    (3, 1, 'Writer'), -- Christopher Nolan -> Writer of Interstellar
-    (3, 4, 'Actor'), -- Matthew McConaughey -> Actor in Interstellar
-    (4, 1, 'Director'), -- Christopher Nolan -> Director of Memento
-    (4, 1, 'Writer'), -- Christopher Nolan -> Writer of Memento
-    (4, 5, 'Actor'), -- Guy Pearce -> Actor in Memento
-    (5, 1, 'Director'); -- Christopher Nolan -> Director of Tenet
+    (2, 3, 'Actor'); -- Christian Bale -> Actor in The Dark Knight
 
 -- Insert series
 INSERT INTO series (title, start_year, end_year, rating, votes)
