@@ -31,7 +31,7 @@ const People = () => {
               <Link to={`/people/${person.id}`} style={styles.link}>
                 <h2 style={styles.name}>
                   {person.name}
-                  <span style={styles.icon}>➡️</span> {/* Icon for clickable indicator */}
+                  <span style={styles.icon}>➡️</span>
                 </h2>
               </Link>
               <p style={styles.info}>
@@ -48,7 +48,7 @@ const People = () => {
   );
 };
 
-// CSS-in-JS styles
+
 const styles = {
   container: {
     padding: '20px',
@@ -83,7 +83,7 @@ const styles = {
     padding: '15px',
     textAlign: 'center',
     transition: 'transform 0.2s, box-shadow 0.2s',
-    cursor: 'pointer', // Indicates the card is clickable
+    cursor: 'pointer',
   },
   link: {
     textDecoration: 'none',
@@ -106,7 +106,6 @@ const styles = {
   },
 };
 
-// Adding hover effects using JavaScript
 styles.cardHover = { ...styles.card, transform: 'scale(1.05)', boxShadow: '0 8px 12px rgba(0, 0, 0, 0.15)' };
 
 export default People;

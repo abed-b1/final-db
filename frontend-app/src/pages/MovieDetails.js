@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const MovieDetails = () => {
-  const { id } = useParams(); // Get the movie ID from the URL
+  const { id } = useParams(); 
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState('');
 

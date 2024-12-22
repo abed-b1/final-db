@@ -28,7 +28,7 @@ def get_movies():
             "votes": movie.votes,
             "is_adult": movie.is_adult,
             "genres": [{"id": genre.id, "name": genre.name} for genre in movie.genres],
-            "people": [{"id": person.id, "name": person.name, "role": person.role} for person in movie.people]  # Fixed access to people
+            "people": [{"id": person.id, "name": person.name, "role": person.role} for person in movie.people] 
         } for movie in movies]), 200
     except Exception as e:
         return jsonify({"error": "Failed to fetch movies", "message": str(e)}), 500
@@ -43,7 +43,7 @@ def get_movie(movie_id):
             return jsonify({"error": "Movie not found"}), 404
 
         genres = [{"id": genre.id, "name": genre.name} for genre in movie.genres]
-        people = [{"id": person.id, "name": person.name, "role": person.role} for person in movie.people]  # Fixed access to people
+        people = [{"id": person.id, "name": person.name, "role": person.role} for person in movie.people]  
 
         return jsonify({
             "id": movie.id,

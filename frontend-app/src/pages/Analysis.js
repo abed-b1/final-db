@@ -29,7 +29,7 @@ const Analysis = () => {
   const [ratingTrends, setRatingTrends] = useState([]);
   const [directorRatings, setDirectorRatings] = useState([]);
   const [genreTrends, setGenreTrends] = useState([]);
-  const [error, setError] = useState(''); // Added error state for better error handling
+  const [error, setError] = useState(''); 
 
   useEffect(() => {
     const fetchData = async () => {

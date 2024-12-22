@@ -1,24 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Navbar from './components/NavBar.js'; // Import the shared navigation bar
+import Navbar from './components/NavBar.js'; 
 import Home from './pages/Home';
 import Movies from './pages/Movies';
 import MovieDetails from './pages/MovieDetails';
 import Series from './pages/Series';
-import People from './pages/People'; // Add this for the list of people
-import PersonDetails from './pages/PersonDetails'; // Shows details for one person
+import People from './pages/People'; 
+import PersonDetails from './pages/PersonDetails'; 
 import Search from './pages/Search';
 import SeriesDetails from './pages/SeriesDetails';
-import Analysis from './pages/Analysis'; // Import the Analysis page
+import Analysis from './pages/Analysis'; 
 
 const App = () => {
-  const location = useLocation(); // Get the current location
+  const location = useLocation();
 
   return (
     <>
-      {/* Conditionally render the Navbar */}
       {location.pathname !== '/' && <Navbar />}
-      <div style={{ padding: '20px' }}> {/* Provide consistent padding for the content */}
+      <div style={{ padding: '20px' }}> 
         <Routes>
           {/* Home Page */}
           <Route path="/" element={<Home />} />
@@ -28,18 +27,18 @@ const App = () => {
           <Route path="/movies/:id" element={<MovieDetails />} />
 
           {/* TV Series Page */}
-          <Route path="/series" element={<Series />} /> {/* Single page for series */}
-          <Route path="/series/:id" element={<SeriesDetails />} /> {/* Series Details Page */}
+          <Route path="/series" element={<Series />} /> 
+          <Route path="/series/:id" element={<SeriesDetails />} /> 
 
           {/* People Page */}
-          <Route path="/people" element={<People />} /> {/* List of people */}
-          <Route path="/people/:personId" element={<PersonDetails />} /> {/* Person details */}
+          <Route path="/people" element={<People />} /> 
+          <Route path="/people/:personId" element={<PersonDetails />} />
 
           {/* Search Page */}
           <Route path="/search" element={<Search />} />
 
           {/* Analysis Page */}
-          <Route path="/analysis" element={<Analysis />} /> {/* Data analysis and visualization */}
+          <Route path="/analysis" element={<Analysis />} /> 
         </Routes>
       </div>
     </>

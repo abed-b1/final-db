@@ -12,8 +12,7 @@ const Search = () => {
       return;
     }
 
-    setError(''); // Clear previous errors
-    // Make API call to search endpoint
+    setError('');
     axios
       .get(`http://localhost:5001/search`, { params: { query } })
       .then((response) => setResults(response.data))

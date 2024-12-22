@@ -29,14 +29,13 @@ class MovieGenre(db.Model):
 
 
 # Person Model (Actor, Director, Writer)
-# Person Model (Actor, Director, Writer)
 class Person(db.Model):
     __tablename__ = 'people'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     birth_year = db.Column(db.Integer)
     death_year = db.Column(db.Integer)
-    role = db.Column(db.String(50), nullable=True)  # Optional field to specify role in the database
+    role = db.Column(db.String(50), nullable=True) 
     
 
 
@@ -46,7 +45,7 @@ class MoviePerson(db.Model):
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.id'), primary_key=True)
     person_id = db.Column(db.Integer, db.ForeignKey('people.id'), primary_key=True)
     role = db.Column(db.String(50), nullable=False)
-    person = db.relationship('Person', backref='movie_roles')  # Corrected relationship to Person
+    person = db.relationship('Person', backref='movie_roles')  
 
 
 
@@ -58,8 +57,8 @@ class Series(db.Model):
     end_year = db.Column(db.Integer, nullable=True)
     rating = db.Column(db.Float)
     votes = db.Column(db.Integer)
-    description = db.Column(db.Text)  # Make sure this column exists
-    image_url = db.Column(db.String(255))  # Make sure this column exists
+    description = db.Column(db.Text)  
+    image_url = db.Column(db.String(255)) 
 
 
 # Episode Model

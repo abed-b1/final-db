@@ -38,8 +38,8 @@ const styles = {
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: '20px',
-    color: '#ffcc00', // IMDb signature yellow
-    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)', // Adds a shadow effect
+    color: '#ffcc00', 
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)', 
   },
   movieGrid: {
     display: 'grid',

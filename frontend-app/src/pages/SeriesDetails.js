@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const SeriesDetails = () => {
-  const { id } = useParams(); // Get series ID from the URL
+  const { id } = useParams();
   const [series, setSeries] = useState(null);
   const [error, setError] = useState('');
 

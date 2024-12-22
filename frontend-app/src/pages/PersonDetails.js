@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 const PersonDetails = () => {
-  const { personId } = useParams(); // Get the personId from the route parameters
+  const { personId } = useParams(); 
   const [person, setPerson] = useState(null);
   const [error, setError] = useState('');
 
@@ -63,7 +63,6 @@ const PersonDetails = () => {
   return (
     <div style={styles.container}>
       <div style={styles.header}>
-        {/* Placeholder for an optional person image */}
         <div>
           <h1 style={styles.name}>{person.name}</h1>
         </div>
