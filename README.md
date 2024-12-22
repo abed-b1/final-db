@@ -1,5 +1,5 @@
 # IMBD PROJECT
-Sathya Erwan GNANOU and Abed BADRAN
+Abed BADRAN and Sathya Erwan GNANOU
 
 ## Backend Setup
 
