@@ -16,7 +16,12 @@ def home():
 # -------------------- Movies Routes --------------------
 @main_bp.route('/movies', methods=['GET'])
 def get_movies():
-    """Get all movies along with their genres and people."""
+    """
+    Get all movies with their associated genres and people.
+
+    - This route retrieves a list of all movies along with their genres and related people (e.g., cast and crew).
+    - Query uses SQLAlchemy's ORM relationships to fetch associated data.
+    """
     try:
         movies = Movie.query.all()
         return jsonify([{
@@ -36,7 +41,10 @@ def get_movies():
 
 @main_bp.route('/movies/<int:movie_id>', methods=['GET'])
 def get_movie(movie_id):
-    """Get a single movie by ID."""
+    """Get details of a specific movie by its ID.
+
+    - Fetches movie data along with associated genres and people.
+    - Returns 404 if the movie is not found."""
     try:
         movie = Movie.query.get(movie_id)
         if not movie:
@@ -61,7 +69,10 @@ def get_movie(movie_id):
 
 @main_bp.route('/movies', methods=['POST'])
 def add_movie():
-    """Add a new movie."""
+    """ Add a new movie to the database.
+
+    - Expects JSON payload with at least 'title' and 'year'.
+    - Returns the ID of the newly added movie."""
     try:
         data = request.json
         required_fields = ['title', 'year']
@@ -85,7 +96,10 @@ def add_movie():
 
 @main_bp.route('/movies/<int:movie_id>', methods=['DELETE'])
 def delete_movie(movie_id):
-    """Delete a movie by ID."""
+    """Delete a movie by its ID.
+
+    - Returns 404 if the movie doesn't exist.
+    - Deletes the movie from the database if found."""
     try:
         movie = Movie.query.get(movie_id)
         if not movie:
@@ -234,7 +248,11 @@ def search():
 
 @main_bp.route('/analysis/directors-average-ratings', methods=['GET'])
 def directors_average_ratings():
-    """Analyze directors' average ratings."""
+    """Analyze the average ratings of movies directed by each director.
+
+    - Custom SQL query joins `movies`, `movie_people`, and `people` tables.
+    - Filters people with the role of 'Director'.
+    - Groups by director name and calculates the average rating for their movies."""
     try:
         query = text("""
             SELECT people.name AS director, AVG(movies.rating) AS avg_rating
@@ -253,7 +271,11 @@ def directors_average_ratings():
 
 @main_bp.route('/analysis/genre-popularity-over-time', methods=['GET'])
 def genre_popularity_over_time():
-    """Analyze genre popularity over time."""
+    """ Analyze the popularity of genres over time.
+
+    - Custom SQL query joins `genres`, `movie_genres`, and `movies`.
+    - Groups by genre name and year, counting the number of movies in each genre per year.
+    - Sorts by year and movie count."""
     try:
         query = text("""
             SELECT g.name AS genre, m.year, COUNT(*) AS movie_count
@@ -272,7 +294,10 @@ def genre_popularity_over_time():
 
 @main_bp.route('/analysis/ratings-by-year', methods=['GET'])
 def ratings_by_year():
-    """Get average movie ratings by year."""
+    """Analyze the average movie ratings by year.
+
+    - Groups movies by year and calculates the average rating for each year.
+    - Sorts by year in ascending order."""
     try:
         result = db.session.execute(text("""
             SELECT m.year, AVG(m.rating) AS avg_rating
